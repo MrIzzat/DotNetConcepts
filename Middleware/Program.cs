@@ -103,3 +103,19 @@ app.MapControllers();
 app.Run();
 
 //In .net 6.0+ there is no startup class anymore everything is done from the program.cs file
+
+
+/*Don't call next.Invoke after the response has been sent to the client. Changes to HttpResponse after the response has started throw an exception. 
+ For example, setting headers and a status code throw an exception. Writing to the response body after calling next:
+
+May cause a protocol violation. For example, writing more than the stated Content-Length.
+May corrupt the body format. For example, writing an HTML footer to a CSS file.
+
+HasStarted is a useful hint to indicate if headers have been sent or the body has been written to.*/
+
+//To see what the best practice is to change status code through a middleware in the response:
+//https://learn.microsoft.com/en-us/aspnet/core/fundamentals/best-practices?view=aspnetcore-7.0#do-not-modify-the-status-code-or-headers-after-the-response-body-has-starteds
+
+
+//The built in middlwares:
+//https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-7.0#built-in-middleware
