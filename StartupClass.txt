@@ -1,0 +1,72 @@
+Start up class has 2 main methods: Configure, Configure Services
+
+Configure: is used to set up the http request pipeline
+
+Configure Services: is used to set up the services that will be used for the API (mainly dependancy Injection)
+
+
+There are 2 kinds of hosts: Generic hosts and Web hosts
+
+generic host is recommended to be used for most applications.
+
+web hosts is used for backwards compatibility
+
+The Host class contains all the application resources such as http server implementation, middleware, dependancy injection, logging etc.
+It also provides services related to the startup class.
+
+startup class takes a IConfiguration variable which has been injected by the main program.cs
+
+The startup class can also take IWebHost or IHost environment and can be injected
+
+The configure method in the startup class is used to determine how to respond to http requests.
+
+This is done by adding middleware components to the IApplicationBuilder instance. 
+The instance is passed to the method through dependancy injection but instead directly passed as an argument to the method
+
+The convention for middleware is UseNameOfMethod
+
+By convetion the configureservices is called before the Configure method
+
+The ConfigureServices and Configure methods both support environment specific methods
+An overloaded version of the methods can be created depending on the environment
+
+which means when creating overloaded methods in the startup class, they will all be used where the 
+specifcally defined method will be used first then the default one will be called
+
+Overloaded Configure methods will follow the same idea
+
+If the application is not run in a specific environment, the overloaded ConfigureServices and Configure methods will not 
+be called.
+
+That's why it's important for the names of the overloaded methods to match the environment
+
+The environment of an API can be determined in the properties>launchSettings.json file > profile > environmentvariables section
+ASPNETCORE_ENVIRONMENT is usually set to development
+
+Depending on which profile is used to start up the application, that profile's environemtnvariables section should be changed
+if using startupclass or IIS etc.
+
+The entire startup class can be environment specific
+
+To make sure the program.cs runs the correct startup class based on the environment This code can be used:
+
+webBuilder.UseStartup(typeof(Startup).Assembly.FullName)
+
+The application does not need a startup class since it's only convention
+
+In order for it to work without a startup class it's procedure should be done correctly in the program.cs class
+
+To do this the configure and configure services should be moved to the program.cs class they should be static when moved
+
+inside the configurehostdefaults for the Host setup the configure and configureservices methods can be added like this:
+
+webBuilder
+	.ConfigureSerices(ConfigureServices)
+	.Configure(Configure)
+
+Where the arugments passed are the name of the methods that have been moved to thep program.cs file
+
+In configure custom services like IWebEnvironment need to initialized differently since they are no longer passed from the program.cs file
+
+When trying the add multiple configureservices or configure methods to the webBuilder, only the last one is applied
+
