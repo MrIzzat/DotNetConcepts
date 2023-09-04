@@ -1,0 +1,9 @@
+Just download the entityframework nuger packages
+
+and type this command into the console:
+
+Scaffold-Dbcontext  "Server=DESKTOP-1FGNE6J\ASPNET;Database=ORM;TrustServerCertificate=True;Trusted_Connection=True;MultipleActiveResultSets=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+
+To override the name of the context file add -c "NewFileName" to the end of the command
+
+If changes have been made to the schema and scaffolding is needed again add -f or --force to the command

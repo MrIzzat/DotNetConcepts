@@ -1,0 +1,9 @@
+ClientSetNull
+#
+The ClientSetNull is used when you have entities that may or may not have a parent, and you want EF to take care of nulling out the foreign key for you.
+It is the default option for entities that can exist without a parent usually make use of optional relationships.
+SetNull
+#
+The SetNull option is used when you want the database to also try to propagate null values to child foreign keys even when the child entity is not loaded.
+However, note that the database must support this, and configuring the database like this can result in other restrictions,
+which in practice often makes this option impractical. This is why SetNull is not the default.
