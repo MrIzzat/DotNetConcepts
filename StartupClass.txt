@@ -70,3 +70,9 @@ In configure custom services like IWebEnvironment need to initialized differentl
 
 When trying the add multiple configureservices or configure methods to the webBuilder, only the last one is applied
 
+The staging environment is the exact same as production environment except it is used for testing.
+
+The production environment contains the latest versions for software, products or updates and are pushed live for intended users.
+
+The development evironment is the environment used to develop the code for the product. It can contain versions of software that 
+are different from each other.

@@ -1,4 +1,4 @@
-Just download the entityframework nuger packages
+Just download the entityframework nuget packages
 
 and type this command into the console:
 
